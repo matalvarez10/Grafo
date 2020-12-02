@@ -243,6 +243,7 @@ $(document).ready(function () {
 
     })
     $("#showregex").click(function() {
+        var i;
         var debugc=0;
         var debugArray=[];
         console.log('ola');
@@ -359,31 +360,19 @@ $(document).ready(function () {
                 }
             }
             /*insertando transiciones nuevas*/
+            var arregloprobar=[];
             for(let inserts of auxTrans){
-                user_input3.transitions3.push(inserts);
+                arregloprobar.push(inserts);
             }
             /*borrando transiciones antiguas*/
-            for(let ins of ArregloIn){
-                for(let outs of ArregloOut){
-                    for(let transBorradas of user_input3.transitions3){
-                        if(transBorradas.state==estado || transBorradas.nextStates[0]==estado){
-                            user_input3.transitions3.splice(user_input3.transitions3.indexOf(transBorradas),1);
-                        }
-                    }
+            for(let op of user_input3.transitions3){
+                if(op.state!=estado && op.nextStates[0]!=estado ){
+                    arregloprobar.push(op);
+                }
 
-                }
             }
-            for(let repBucle of user_input3.transitions3){
-                if(repBucle.state==estado && repBucle.nextStates[0]==estado){
-                    user_input3.transitions3.splice(user_input3.transitions3.indexOf(repBucle),1);
-                }
-            }
-            for(asd of user_input3.transitions3){
-                if(asd.state==estado || asd.nextStates==estado || asd.nextStates[0]==estado || (asd.nextStates.includes(estado)==true)){
-                    user_input3.transitions3.splice(user_input3.transitions3.indexOf(asd),1);
+            user_input3.transitions3=arregloprobar;
 
-                }
-            }
 
             debugc++;
             debugArray=[];
