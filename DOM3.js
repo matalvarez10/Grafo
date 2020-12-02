@@ -110,7 +110,7 @@ $(document).ready(function () {
     $("#exampleBtn3").click(function () {
 
         $("#initialStateInput3").val('q0');
-        $("#finalStatesInput3").val('q1');
+        $("#finalStatesInput3").val('q3');
 
         let transitionsDiv3 = $("#nfa-transitions3");
         let clone = $("#nfa-transitions3 .production-row3").first().clone(true);
@@ -120,7 +120,7 @@ $(document).ready(function () {
         });
 
         
-/*
+
         clone.find(".current-state-input3").val('q0');
         clone.find(".input-symbol3").val('a');
         clone.find(".next-states3").val('q1');
@@ -161,8 +161,9 @@ $(document).ready(function () {
         clone.find(".input-symbol3").val('a');
         clone.find(".next-states3").val('q3');
         transitionsDiv3.append(clone);
-        */
 
+/* ejemplo 2 */
+/*
        clone.find(".current-state-input3").val('q0');
        clone.find(".input-symbol3").val('a');
        clone.find(".next-states3").val('q1');
@@ -203,6 +204,7 @@ $(document).ready(function () {
        clone.find(".input-symbol3").val('b');
        clone.find(".next-states3").val('q2');
        transitionsDiv3.append(clone);
+       */
 
 
 

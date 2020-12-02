@@ -243,6 +243,7 @@ $(document).ready(function () {
 
     })
     $("#showregex").click(function() {
+        var i;
         var debugc=0;
         var debugArray=[];
         console.log('ola');
@@ -292,7 +293,9 @@ $(document).ready(function () {
                             }
                         }
                         InIntermedio= InIntermedio.slice(0, -1);
+                        if(InIntermedio.includes('+') == true){
                         InIntermedio='('+InIntermedio+')';
+                        }
                         /*buscando posibles loops*/
                         for(let sumBucles of user_input3.transitions3){
                             if(sumBucles.state==estado && sumBucles.nextStates[0]==estado ){
@@ -310,7 +313,9 @@ $(document).ready(function () {
                             }
                         }
                         IntermedioFinal= IntermedioFinal.slice(0, -1);
+                        if(IntermedioFinal.includes('+')== true){
                         IntermedioFinal='('+IntermedioFinal+')';
+                        }
                         transFinal=InIntermedio+bucle+IntermedioFinal;
                         auxTrans.push(new Transition(ins, outs,transFinal));
                     }
@@ -323,9 +328,6 @@ $(document).ready(function () {
                         for(let repetidosCheck of user_input3.transitions3){
                             if(repetidosCheck.state==estado && repetidosCheck.nextStates[0]==estado){
                                 LoopAux=LoopAux+repetidosCheck.symbol+'+';
-                                console.log('FUNCIONAAA');
-                                console.log(estado);
-                                console.log(repetidosCheck.symbol);
                             }
                         }
                         if(LoopAux !=''){
@@ -339,7 +341,9 @@ $(document).ready(function () {
                             }
                         }
                         sumIns1 =sumIns1.slice(0, -1);
+                        if(sumIns1.includes('+')){
                         sumIns1='('+sumIns1+')';
+                        }
                         /*Revisando uniones desde intermedio hasta ins*/
 
                         for(let unionFinal2 of user_input3.transitions3){
@@ -348,9 +352,10 @@ $(document).ready(function () {
                             }
                         }
                         /*Insertando la nueva trans a el automata auxiliar*/
-                        console.log(LoopAux);
                         sumIns2= sumIns2.slice(0, -1);
+                        if(sumIns2.includes('+')){
                         sumIns2='('+sumIns2+')';
+                        }
                         LoopFinal=sumIns1+LoopAux+sumIns2;
                         auxTrans.push(new Transition(ins, outs,LoopFinal));                        
                         
@@ -359,31 +364,19 @@ $(document).ready(function () {
                 }
             }
             /*insertando transiciones nuevas*/
+            var arregloprobar=[];
             for(let inserts of auxTrans){
-                user_input3.transitions3.push(inserts);
+                arregloprobar.push(inserts);
             }
             /*borrando transiciones antiguas*/
-            for(let ins of ArregloIn){
-                for(let outs of ArregloOut){
-                    for(let transBorradas of user_input3.transitions3){
-                        if(transBorradas.state==estado || transBorradas.nextStates[0]==estado){
-                            user_input3.transitions3.splice(user_input3.transitions3.indexOf(transBorradas),1);
-                        }
-                    }
+            for(let op of user_input3.transitions3){
+                if(op.state!=estado && op.nextStates[0]!=estado ){
+                    arregloprobar.push(op);
+                }
 
-                }
             }
-            for(let repBucle of user_input3.transitions3){
-                if(repBucle.state==estado && repBucle.nextStates[0]==estado){
-                    user_input3.transitions3.splice(user_input3.transitions3.indexOf(repBucle),1);
-                }
-            }
-            for(asd of user_input3.transitions3){
-                if(asd.state==estado || asd.nextStates==estado || asd.nextStates[0]==estado || (asd.nextStates.includes(estado)==true)){
-                    user_input3.transitions3.splice(user_input3.transitions3.indexOf(asd),1);
+            user_input3.transitions3=arregloprobar;
 
-                }
-            }
 
             debugc++;
             debugArray=[];
@@ -397,6 +390,17 @@ $(document).ready(function () {
             console.log(debugArray);
 
         }
+        var regexDefenitivo='';
+        for(let palabrasF of user_input3.transitions3){
+            if(palabrasF.state=='qi'){
+                regexDefenitivo=regexDefenitivo + palabrasF.symbol + ' + ';
+            }
+        }
+        regexDefenitivo= regexDefenitivo.slice(0, -1);
+        regexDefenitivo= regexDefenitivo.slice(0, -1);
+        $("#showPalabra").empty();
+        $("#showPalabra").append(regexDefenitivo);
+
         
     })
     $("#mostrarConcatenacion").click(function(){
