@@ -261,7 +261,6 @@ $(document).ready(function () {
 
     })
     $("#showregex").click(function() {
-        var i;
         var debugc=0;
         var debugArray=[];
         console.log('ola');
