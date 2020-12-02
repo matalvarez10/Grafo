@@ -109,8 +109,8 @@ $(document).ready(function () {
 
     $("#exampleBtn2").click(function () {
 
-        $("#initialStateInput2").val('q3');
-        $("#finalStatesInput2").val('q5');
+        $("#initialStateInput2").val('q2');
+        $("#finalStatesInput2").val('q3');
 
         let transitionsDiv2 = $("#nfa-transitions2");
         let clone = $("#nfa-transitions2 .production-row2").first().clone(true);
@@ -120,7 +120,7 @@ $(document).ready(function () {
         });
 
         
-
+/*ejemplo 1 afd
         clone.find(".current-state-input2").val('q3');
         clone.find(".input-symbol2").val('a');
         clone.find(".next-states2").val('q4');
@@ -143,6 +143,23 @@ $(document).ready(function () {
         clone.find(".input-symbol2").val('b');
         clone.find(".next-states2").val('q6');
         transitionsDiv2.append(clone);
+        */
+       clone.find(".current-state-input2").val('q2');
+       clone.find(".input-symbol2").val('c_E_x');
+       clone.find(".next-states2").val('q2');
+       transitionsDiv2.append(clone);
+    
+       clone = clone.clone(true);
+       clone.find(".current-state-input2").val('q2');
+       clone.find(".input-symbol2").val('E_E_E');
+       clone.find(".next-states2").val('q3');
+       transitionsDiv2.append(clone);
+    
+       clone = clone.clone(true);
+       clone.find(".current-state-input2").val('q3');
+       clone.find(".input-symbol2").val('d_x_E');
+       clone.find(".next-states2").val('q3');
+       transitionsDiv2.append(clone);
 
 
 
@@ -188,26 +205,7 @@ $(document).ready(function () {
         console.log(dotStr2);
         d3.select("#current-nfa2").graphviz().zoom(false).renderDot(dotStr2);
         // Now that the preview is done, generate the DFA
-        let dfa2 = generateDFA(new NFA(user_input2.initialState2, user_input2.finalStates2, user_input2.states2, user_input2.alphabet2, user_input2.transitions2));
-
-        let step_div2 = $("#step-div2");
-
-        step_div2.empty();
-
-        for (let i = 0; i <= LAST_COMPLETED_STEP_COUNT; i++) {
-            step_div2.append('<button class="btn btn-xs btn-info" data-step-number="' + (i + 1) + '">Step ' + (i + 1) + '</button>');
-        }
-
-        let dotStr = dfa2.toDotString();
-        console.log(dotStr);
-        d3.select("#current-dfa2").graphviz().zoom(false).renderDot(dotStr);
-
-        dfa2 = minimizeDFA(dfa2);
-        dotStr = dfa2.toDotString();
-        console.log(dotStr);
-        $("#current-dfa-minimized2").show();
-        d3.select("#current-dfa-minimized2").graphviz().zoom(false).renderDot(dotStr);
-
+        
 
 
     });
