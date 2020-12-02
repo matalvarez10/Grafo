@@ -386,6 +386,17 @@ $(document).ready(function () {
             console.log(debugArray);
 
         }
+        var regexDefenitivo='';
+        for(let palabrasF of user_input3.transitions3){
+            if(palabrasF.state=='qi'){
+                regexDefenitivo=regexDefenitivo + palabrasF.symbol + ' + ';
+            }
+        }
+        regexDefenitivo= regexDefenitivo.slice(0, -1);
+        regexDefenitivo= regexDefenitivo.slice(0, -1);
+        $("#showPalabra").empty();
+        $("#showPalabra").append(regexDefenitivo);
+
         
     })
     $("#mostrarConcatenacion").click(function(){
