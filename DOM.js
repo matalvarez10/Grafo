@@ -293,7 +293,9 @@ $(document).ready(function () {
                             }
                         }
                         InIntermedio= InIntermedio.slice(0, -1);
+                        if(InIntermedio.includes('+') == true){
                         InIntermedio='('+InIntermedio+')';
+                        }
                         /*buscando posibles loops*/
                         for(let sumBucles of user_input3.transitions3){
                             if(sumBucles.state==estado && sumBucles.nextStates[0]==estado ){
@@ -311,7 +313,9 @@ $(document).ready(function () {
                             }
                         }
                         IntermedioFinal= IntermedioFinal.slice(0, -1);
+                        if(IntermedioFinal.includes('+')== true){
                         IntermedioFinal='('+IntermedioFinal+')';
+                        }
                         transFinal=InIntermedio+bucle+IntermedioFinal;
                         auxTrans.push(new Transition(ins, outs,transFinal));
                     }
@@ -324,9 +328,6 @@ $(document).ready(function () {
                         for(let repetidosCheck of user_input3.transitions3){
                             if(repetidosCheck.state==estado && repetidosCheck.nextStates[0]==estado){
                                 LoopAux=LoopAux+repetidosCheck.symbol+'+';
-                                console.log('FUNCIONAAA');
-                                console.log(estado);
-                                console.log(repetidosCheck.symbol);
                             }
                         }
                         if(LoopAux !=''){
@@ -340,7 +341,9 @@ $(document).ready(function () {
                             }
                         }
                         sumIns1 =sumIns1.slice(0, -1);
+                        if(sumIns1.includes('+')){
                         sumIns1='('+sumIns1+')';
+                        }
                         /*Revisando uniones desde intermedio hasta ins*/
 
                         for(let unionFinal2 of user_input3.transitions3){
@@ -349,9 +352,10 @@ $(document).ready(function () {
                             }
                         }
                         /*Insertando la nueva trans a el automata auxiliar*/
-                        console.log(LoopAux);
                         sumIns2= sumIns2.slice(0, -1);
+                        if(sumIns2.includes('+')){
                         sumIns2='('+sumIns2+')';
+                        }
                         LoopFinal=sumIns1+LoopAux+sumIns2;
                         auxTrans.push(new Transition(ins, outs,LoopFinal));                        
                         
