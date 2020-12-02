@@ -155,7 +155,7 @@ $(document).ready(function () {
             $(this).remove();
         });
 
-
+/* ejemplo afd
         clone.find(".current-state-input").val('q0');
         clone.find(".input-symbol").val('a');
         clone.find(".next-states").val('q1');
@@ -196,6 +196,24 @@ $(document).ready(function () {
         clone.find(".input-symbol").val('a');
         clone.find(".next-states").val('q3');
         transitionsDiv.append(clone);
+    */
+
+   clone.find(".current-state-input").val('q0');
+   clone.find(".input-symbol").val('a_E_x');
+   clone.find(".next-states").val('q0');
+   transitionsDiv.append(clone);
+
+   clone = clone.clone(true);
+   clone.find(".current-state-input").val('q0');
+   clone.find(".input-symbol").val('E_E_E');
+   clone.find(".next-states").val('q1');
+   transitionsDiv.append(clone);
+
+   clone = clone.clone(true);
+   clone.find(".current-state-input").val('q1');
+   clone.find(".input-symbol").val('b_x_E');
+   clone.find(".next-states").val('q1');
+   transitionsDiv.append(clone);
 
 
      
@@ -446,136 +464,8 @@ $(document).ready(function () {
         d3.select("#concatenacion-automatas").graphviz().zoom(false).renderDot(cStr);
 
     })
-    $("#mostrarInterseccion").click(function(){
-        var auxFinal=[];
-        var auxFinal2=[];
-        var estadosDef=[];
-        var nuevoInicial="ini";
-        let user_input=fetchUserInput();
-        let user_input2=fetchUserInput2();
-        for(let elemento of user_input.states){
-            if(user_input.finalStates.includes(elemento)==false){
-                auxFinal.push(elemento);
-            }
-        }
-        for(let elemento of user_input2.states2){
-            if(user_input2.finalStates2.includes(elemento)==false){
-                auxFinal2.push(elemento);
-            }
-        }
-        var aux2=user_input.states.concat(user_input2.states2);
-        aux2.push(nuevoInicial);
-        console.log(aux2);
-        console.log(user_input.transitions);
-        var aux3=[];
-        for(let x of user_input.transitions){
-            aux3.push(x);
-        }
-        for(let y of user_input2.transitions2){
-            aux3.push(y);
-        }
-        estadosDef=auxFinal.concat(auxFinal2);
-        console.log(estadosDef);
-        console.log(aux2);
-        aux3.push(new Transition(nuevoInicial, user_input.initialState, '\u03BB'));
-        aux3.push(new Transition(nuevoInicial, user_input2.initialState2, '\u03BB'));
-        let dotStr = "digraph fsm {\n";
-        dotStr += "rankdir=LR;\n";
-        dotStr += "size=\"8,5\";\n";
-        dotStr += "node [shape = doublecircle]; " + estadosDef + ";\n";
-        dotStr += "node [shape = point]; INITIAL_STATE\n";
-        dotStr += "node [shape = circle];\n";
-        dotStr += "INITIAL_STATE -> " + nuevoInicial + ";\n";
 
-        for (let transition of aux3){
-            dotStr += "" + transition.state + " -> " + transition.nextStates + " [label=" + transition.symbol + "];\n";
-        }
-        dotStr += "}";
-        console.log(dotStr);
-        console.log(nuevoInicial);
-        console.log(estadosDef);
-        console.log(aux2);
-        console.log(user_input.alphabet);
-        console.log(aux3);
-        let dfa = generateDFA(new NFA(nuevoInicial ,estadosDef, aux2, user_input.alphabet, aux3));
-        console.log(dfa.states);
-        console.log(dfa.finalStates);
-        var array2=[];
-        for (let st2 of dfa.states){
-                let staux=st2;
-                staux=staux.replace('{', '');
-                staux=staux.replace('}', '');
-                while(staux.includes(",")==true){
-                    staux=staux.replace(',','');
-                }
-                array2.push(staux);
-        }
-        var arraydef=[];
-        for (let st3 of array2){
-            if(dfa.finalStates.includes(st3)==false){
-                arraydef.push(st3);
-            }
-        }
-        if(arraydef.length == 0){
-            arraydef.push("ini");
-        }
-        dfa.finalStates=arraydef;
-        dotStr = dfa.toDotString();
-        d3.select("#interseccion-automatas").graphviz().zoom(false).renderDot(dotStr);
-        dfa = minimizeDFA(dfa);
-        dotStr = dfa.toDotString();
-        d3.select("#interseccion-min").graphviz().zoom(false).renderDot(dotStr); 
-    })
-    $("#mostrarComp1").click(function(){
-        let auxFinal=[];
-        let user_input=fetchUserInput();
-        for(let elemento of user_input.states){
-            if(user_input.finalStates.includes(elemento)==false){
-                auxFinal.push(elemento);
-            }
-        }
-        var estadosDef=auxFinal.join();
-        let dotStr = "digraph fsm {\n";
-        dotStr += "rankdir=LR;\n";
-        dotStr += "size=\"8,5\";\n";
-        dotStr += "node [shape = doublecircle]; " + estadosDef + ";\n";
-        dotStr += "node [shape = point]; INITIAL_STATE\n";
-        dotStr += "node [shape = circle];\n";
-        dotStr += "INITIAL_STATE -> " + user_input.initialState + ";\n";
-
-        for (let transition of user_input.transitions)
-            dotStr += "" + transition.state + " -> " + transition.nextStates + " [label=" + transition.symbol + "];\n";
-
-        dotStr += "}";
-        d3.select("#primer-comp").graphviz().zoom(false).renderDot(dotStr);
-
-
-    })
-    $("#mostrarComp2").click(function(){
-        let auxFinal=[];
-        let user_input=fetchUserInput2();
-        for(let elemento of user_input.states2){
-            if(user_input.finalStates2.includes(elemento)==false){
-                auxFinal.push(elemento);
-            }
-        }
-        var estadosDef=auxFinal.join();
-        let dotStr = "digraph fsm {\n";
-        dotStr += "rankdir=LR;\n";
-        dotStr += "size=\"8,5\";\n";
-        dotStr += "node [shape = doublecircle]; " + estadosDef + ";\n";
-        dotStr += "node [shape = point]; INITIAL_STATE\n";
-        dotStr += "node [shape = circle];\n";
-        dotStr += "INITIAL_STATE -> " + user_input.initialState2 + ";\n";
-
-        for (let transition of user_input.transitions2)
-            dotStr += "" + transition.state + " -> " + transition.nextStates + " [label=" + transition.symbol + "];\n";
-
-        dotStr += "}";
-        d3.select("#segundo-comp").graphviz().zoom(false).renderDot(dotStr);
-
-
-    })
+    
 
 
     $("#verify-update-debug").click(function () {
@@ -603,25 +493,7 @@ $(document).ready(function () {
         d3.select("#current-nfa").graphviz().zoom(false).renderDot(dotStr);
 
         // Now that the preview is done, generate the DFA
-        let dfa = generateDFA(new NFA(user_input.initialState, user_input.finalStates, user_input.states, user_input.alphabet, user_input.transitions));
-
-        let step_div = $("#step-div");
-
-        step_div.empty();
-
-        for (let i = 0; i <= LAST_COMPLETED_STEP_COUNT; i++) {
-            step_div.append('<button class="btn btn-xs btn-info" data-step-number="' + (i + 1) + '">Step ' + (i + 1) + '</button>');
-        }
-
-        dotStr = dfa.toDotString();
-        console.log(dotStr);
-        d3.select("#current-dfa").graphviz().zoom(false).renderDot(dotStr);
-
-        dfa = minimizeDFA(dfa);
-        dotStr = dfa.toDotString();
-        console.log(dotStr);
-        $("#current-dfa-minimized").show();
-        d3.select("#current-dfa-minimized").graphviz().zoom(false).renderDot(dotStr);
+        
 
     });
 

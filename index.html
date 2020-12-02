@@ -52,12 +52,13 @@
     <h1>Consideraciones</h1>
     <p class="instructions"></p>
     <ul class="instructions-list">
-        <li>Para ingresar automatas, hacerlo en la secciones automata 1 y 2 respectivamente</li>
-        <li>Para ingresar un estado epsilon, dejar vacio o escribir[ &lambda; ] </li>
+        <li>Para ingresar automatas, hacerlo en la secciones AP1,AP2 Y AFD</li>
+        <li>Para ingresar un estado epsilon en AFD, dejar vacio o escribir[ &lambda; ], En el caso del automata de pila con una 'E' </li>
         <li>Separar estados finales con coma</li>
-        <li>Para que las funciones se muetren correctamente, procurar que los dos automatas tengan distintos nombres de sus estados( por ejemplo no repetir q1 en los 2 automatas)</li>
+        <li>Para que las funciones se muestren correctamente, procurar que los dos automatas tengan distintos nombres de sus estados( por ejemplo no repetir q1 en los 2 automatas AP)</li>
         <li>Por restriccion de la libreria para mostrar automatas,tiene que haber almenos 1 estado final el automata para mostrarlo</li>
-        <li>Procurar tambien que el alfabeto sea comun entre los dos</li>
+        <li>Para automata de pilas , ingresar separado por un guion bajo (_) cada transicion, por ejemplo a_E_x</li>
+        <li>Donde 'a' seria el caracter que se consume, 'E' el caracter que se saca de la pila y 'x' el que se ingresa a la pila</li>
     </ul>
     <div >
     <button class="btn btn-primary "id="auto1">AP 1</button>
@@ -111,19 +112,6 @@
     <div id="current-nfa"></div>
 
     <div class="clearfix"></div>
-    <h1>Automata en AFD</h1>
-    <div class="row">
-        <div class="col-lg">
-            <span id="current-dfa-status"></span>
-            <div id="current-dfa"></div>
-        </div>
-    </div>
-
-    <h1>Minimizado</h1>
-    <span id="current-dfa-minimized-status"></span>
-    <div id="current-dfa-minimized"></div>
-    <div class="clearfix"></div>
-
 
     </div>
     <div id="probando2">
@@ -168,50 +156,26 @@
         <span id="current-nfa-status2"></span>
         <div id="current-nfa2"></div>
         
-    <div class="clearfix"></div>
-    <h1>Automata en AFD</h1>
-    <div class="row">
-        <div class="col-lg">
-            <span id="current-dfa-status2"></span>
-            <div id="current-dfa2"></div>
-        </div>
-    </div>
-
-    <h1>Automata minimizado</h1>
-    <span id="current-dfa-minimized-status2"></span>
-    <div id="current-dfa-minimized2"></div>
-    <div class="clearfix"></div>   
-       
+    <div class="clearfix"></div>     
     
         </div>
     <div id="probando3">
         <div>
-        <h1>Union de Automatas</h1>
+        <h1>Union de Automatas de Pila</h1>
        </div>
        <div class="clearfix"></div>
        <div><button class="btn btn-info" id="Mostrar">Mostrar</button>   </div>
        <div id="union-automatas"></div>
        <div class="clearfix"></div>
-       <div><h1>Union en AFD</h1></div>
-       <div class="clearfix"></div>
-       <div id="union-dfa"></div>
-       <div class="clearfix"></div>
-       <h1>AFD minimizado</h1>
-       <div id="union-min"></div>
-       <div class="clearfix"></div>
     </div>
     <div id="probando4">
         <div>
-        <h1>Concatenacion de Automatas</h1>
+        <h1>Concatenacion de Automatas de Pila</h1>
        </div>
        <div class="clearfix"></div>
        <div><button class="btn btn-info" id="mostrarConcatenacion">Mostrar</button>   </div>
        <div id="concatenacion-automatas"></div>
        <div class="clearfix"></div>
-       <h1>Concatenacion en AFD</h1>
-       <div id="concatenacion-afd"></div>
-       <h1>AFD minimizado</h1>
-       <div id="conc-min"></div>
 
     </div>
     <div id="probando5">
@@ -286,7 +250,7 @@
         <p>Muestra de automata 3</p>
         <span id="current-nfa-status3"></span>
         <div id="current-nfa3"></div>
-        <div><button class="btn btn-info" id="showregex">Mostrar</button>   </div>
+        <div><button class="btn btn-info" id="showregex">Mostrar ER</button>   </div>
         <div id="useless">
             <label id='showPalabra'></label>
         </div>
